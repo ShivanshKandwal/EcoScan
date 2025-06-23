@@ -1,7 +1,7 @@
 import { SustainabilityAnalysis } from '@/types/sustainability';
 
 // Gemini API configuration
-const GEMINI_API_KEY = 'AIzaSyB6Nujn1-69pnl7uFo7Wze9p5OugyLr1yQ';
+const GEMINI_API_KEY = 'Private Gemini Key , not revealing due to security reason';
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 export async function analyzeImageWithGemini(base64Image: string): Promise<SustainabilityAnalysis> {
