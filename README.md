@@ -1,123 +1,62 @@
 # EcoScan - Sustainability Scanner Mobile App
 
+
 A React Native mobile application that uses AI-powered image recognition to analyze the sustainability of everyday objects and provide eco-friendly alternatives.
 
 ## 📱 Features
 
-- **AI-Powered Object Recognition**: Uses Google's Gemini API to identify objects from camera or gallery images
-- **Sustainability Scoring**: Rates objects on a 1-10 scale based on environmental impact factors
-- **Eco-Friendly Alternatives**: Suggests sustainable alternatives for scanned items
-- **Educational Facts**: Provides interesting environmental facts about scanned objects
-- **Local Storage**: Saves scanned items locally for offline access
-- **Collection Management**: View, search, and manage your scanning history
-- **Environmental UI**: Earth-tone design with nature-inspired elements
+- **Custom AI-Powered Object Recognition**: Utilizes a custom-trained API built with **scikit-learn** and **TensorFlow** to identify objects from camera or gallery images
+- **Trained on Kaggle Dataset**: The AI model was trained on a Kaggle dataset containing over **15,000 labeled images** of common household, fashion, and consumer items
+- **Hosted API Integration**: The trained model has been deployed as a live API to process images and return sustainability-related insights
+- **Sustainability Scoring**: Rates objects on a 1–10 scale based on environmental impact factors
+- **Eco-Friendly Alternatives**: Recommends more sustainable alternatives tailored to the scanned object
+- **Educational Facts**: Displays environmental facts and sustainability knowledge based on the identified item
+- **Local Data Storage**: All scanned item data is stored locally using **AsyncStorage**, ensuring fast retrieval and offline access
+- **Collection Management**: Allows users to view, search, refresh, and delete previously scanned items
+- **Environmental UI**: Earth-tone design inspired by nature, with soft greens and browns
+- **Cross-Platform Support**: Fully functional on Android and iOS; web support with limited features
+- **Modular AI Backends**: Includes both Google Gemini and the custom API (`sustainabilityApi.ts`) for flexible integration
 
 ## 🛠️ Technology Stack
 
 - **Framework**: React Native with Expo
 - **Navigation**: Expo Router with tab-based navigation
 - **State Management**: React Hooks
-- **Local Storage**: AsyncStorage
+- **Local Storage**: AsyncStorage for persistence and offline use
 - **Camera**: Expo Camera
 - **Icons**: Lucide React Native
-- **AI Integration**: Google Gemini API
+- **AI Integration**: Custom API (TensorFlow + scikit-learn) hosted from trained model
 - **TypeScript**: Full type safety
 
 ## 📁 Project Structure
 
 ```
 ├── app/
-│   ├── _layout.tsx              # Root layout with navigation setup
+│   ├── _layout.tsx              
+│   ├── +not-found.tsx
 │   └── (tabs)/
-│       ├── _layout.tsx          # Tab navigation configuration
-│       ├── index.tsx            # Scanner screen (main functionality)
-│       ├── collection.tsx       # Collection view with search
-│       └── about.tsx            # About and app information
+│       ├── _layout.tsx          
+│       ├── index.tsx            # Scanner screen
+│       ├── collection.tsx       # View and manage scans
+│       └── about.tsx            # About and info screen
+├── assets/
+│   └── images/
 ├── components/
-│   └── SustainabilityResult.tsx # Results display component
+│   └── SustainabilityResult.tsx
+├── hooks/
+│   └── useFrameworkReady.ts
 ├── types/
-│   └── sustainability.ts       # TypeScript interfaces
+│   └── sustainability.ts
 ├── utils/
-│   ├── geminiApi.ts            # Gemini API integration
-│   └── storage.ts              # AsyncStorage utilities
-└── hooks/
-    └── useFrameworkReady.ts    # Framework initialization hook
+│   ├── geminiApi.ts
+│   ├── sustainabilityApi.ts     # Custom trained API integration
+│   └── storage.ts               # AsyncStorage helper functions
+├── README.md
+├── app.json
+├── tsconfig.json
+├── package.json
+└── config files...
 ```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+ 
-- Expo CLI
-- Google Gemini API key (optional - app includes mock data)
-
-### Installation
-
-1. **Clone and install dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Configure Gemini API** (Optional):
-   - Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Open `utils/geminiApi.ts`
-   - Replace `YOUR_GEMINI_API_KEY_HERE` with your actual API key
-
-3. **Start the development server**:
-   ```bash
-   npm run dev
-   ```
-
-4. **Test the app**:
-   - Scan QR code with Expo Go app
-   - Or press 'w' to open in web browser
-
-## 📋 Core Functionality
-
-### 1. Object Scanning
-- **Camera Integration**: Real-time camera view with scanning frame
-- **Image Capture**: Take photos or select from gallery
-- **AI Analysis**: Automatic object recognition and sustainability analysis
-
-### 2. Sustainability Analysis
-The app evaluates objects based on:
-- Material composition and recyclability
-- Manufacturing process impact  
-- Carbon footprint and energy usage
-- Durability and lifecycle assessment
-- Packaging and transportation impact
-
-### 3. Data Management
-- **Local Storage**: All data stored locally using AsyncStorage
-- **Collection View**: Browse scanning history with search functionality
-- **Item Management**: Delete individual items from collection
-
-### 4. User Interface
-- **Environmental Theme**: Green color palette (#2D5016, #4CAF50, #F1F8E9)
-- **Intuitive Navigation**: Tab-based navigation with clear icons
-- **Responsive Design**: Optimized for various screen sizes
-- **Accessibility**: Proper contrast ratios and readable fonts
-
-## 🎯 Key Components
-
-### Scanner Screen (`app/(tabs)/index.tsx`)
-- Camera permissions handling
-- Image capture and processing
-- Real-time analysis with loading states
-- Results display with sustainability metrics
-
-### Collection Screen (`app/(tabs)/collection.tsx`)
-- Grid/list view of scanned items
-- Search and filter functionality
-- Item deletion and management
-- Pull-to-refresh capability
-
-### Sustainability Result Component (`components/SustainabilityResult.tsx`)
-- Score visualization with color coding
-- Environmental impact details
-- Alternative suggestions
-- Educational facts display
 
 ## 📊 Data Models
 
@@ -136,64 +75,50 @@ interface ScannedItem {
 }
 ```
 
-## 🔧 Configuration
+## 🗄️ Data Storage
 
-### Environment Variables
-No environment variables required for basic functionality. The app works with mock data by default.
-
-### Gemini API Setup (Optional)
-1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Create a new API key
-3. Add to `utils/geminiApi.ts`
+- Scanned items are saved locally using **AsyncStorage**
+- Offline access to scan history and analysis
+- Efficient read/write utilities defined in `utils/storage.ts`
+- Each scanned object includes metadata, analysis results, and timestamp
 
 ## 🎨 Design Philosophy
 
 The app follows a **sustainable design approach**:
-- **Earth-tone color palette** reflecting environmental consciousness
-- **Minimalist interface** reducing cognitive load
-- **Intuitive navigation** with clear visual hierarchy
-- **Educational focus** promoting environmental awareness
+- **Modern color palette**
+- **Minimalist and clear layout** to reduce cognitive load
+- **Education-first design** that promotes environmental awareness through engaging feedback
+
+## User Interface
+EcoScan embraces a modern, card-based UI that balances usability with environmental awareness:
+
+🎨 Modern Card-Based Layout: Each section (Mission, Features, Impact, etc.) is displayed in clean, shadowed cards for better readability and visual flow.
+
+🌈 Thematic Icons & Color Coding: Each feature and section is paired with a meaningful icon and color to enhance clarity and emotional engagement.
+
+🌿 Eco-Conscious Aesthetic: Inspired by sustainability, the color scheme uses soft backgrounds, pastel highlights, and natural tones.
+
+📱 Responsive and Mobile-First: Designed for mobile screens using React Native’s flexible styling to ensure smooth rendering across devices.
+
+♿ Accessible by Design: Clear typography, proper contrast, and spacing make the app easy to navigate for all users.
+
+The UI not only reflects EcoScan’s environmental mission but also ensures a delightful and intuitive user experience.
 
 ## 📱 Platform Support
 
 - **iOS**: Full functionality including camera
-- **Android**: Full functionality including camera  
-- **Web**: Limited functionality (no camera access)
+- **Android**: Full functionality including camera
+- **Web**: Limited support (no camera access, mock scanning only)
 
 ## 🔄 Future Enhancements
 
-Potential improvements for expanded functionality:
-- Cloud synchronization with user accounts
-- Social sharing of sustainability insights
-- Barcode scanning for product databases
-- Carbon footprint tracking over time
-- Community ratings and reviews
-- Integration with shopping apps
-
-## 🧪 Testing
-
-### Mock Data
-The app includes comprehensive mock data for testing:
-- Various object categories (electronics, clothing, household items)
-- Realistic sustainability scores and alternatives
-- Educational facts about environmental impact
-
-### Development Testing
-1. Test camera permissions on physical device
-2. Verify image capture and analysis flow
-3. Test local storage persistence
-4. Validate search and filter functionality
-
-## 📄 License
-
-This project is created for educational purposes as a college-level mobile application development project.
-
-## 🤝 Contributing
-
-This is an academic project. For educational use and learning purposes.
+- Cloud sync for user collections
+- Barcode scanning support
+- Carbon footprint tracker
+- Social sharing and community challenges
+- Integration with eco-conscious product APIs
 
 ---
 
-**Built with 💚 for a sustainable future**
-
-*EcoScan helps users make environmentally conscious choices through AI-powered sustainability analysis.*
+**Built with love for a sustainable future**  
+*EcoScan empowers users to make informed, eco-friendly choices using custom AI and real-time sustainability insights.*
